@@ -21,7 +21,7 @@ public class CowController {
 	@Autowired // ML: @Autowired initialisiert das Repository als Attribut im Controller
 	private CowRepository cowRepository;
 
-	// ML: Mapping für Listendarstellung, Referenz auf index.thml
+	// ML: Mapping für Listendarstellung, Referenz auf index.thml-----------------------------------------------------
 	@GetMapping("list")
 	public String list(Model model) {
 		model.addAttribute("cows", cowRepository.findAll());
@@ -34,7 +34,7 @@ public class CowController {
 		return "add-cow";
 	}
 
-	// ML: Mapping für's Abschicken des Add-Formulars
+	// ML: Mapping für's Abschicken des Add-Formulars-----------------------------------------------------
 	@PostMapping("add")
 	public String addCow(Cow cow, BindingResult result, Model model) {
 		if (result.hasErrors()) {
@@ -45,7 +45,7 @@ public class CowController {
 		return "redirect:list";
 	}
 
-	// ML: Mapping für Edit-Formular
+	// ML: Mapping für Edit-Formular-----------------------------------------------------
 	@GetMapping("edit/{id}")
 	public String editCow(@PathVariable("id") long id, Model model) {
 		Cow cow = cowRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid cow Id:" + id));
@@ -53,7 +53,7 @@ public class CowController {
 		return "update-cow";
 	}
 
-	// ML: Mapping für's Abschicken des Edit-Formulars
+	// ML: Mapping für's Abschicken des Edit-Formulars-----------------------------------------------------
 	@PostMapping("edit/{id}")
 	public String editCow(@PathVariable("id") long id, Cow cow, BindingResult result,
 			Model model) {
@@ -67,7 +67,7 @@ public class CowController {
 		return "index";
 	}
 
-	// ML: Mapping für die Löschen-Funktionalität
+	// ML: Mapping für die Löschen-Funktionalität-----------------------------------------------------
 	@GetMapping("delete/{id}")
 	public String deleteCow(@PathVariable("id") long id, Model model) {
 		Cow cow = cowRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid cow Id:" + id));
