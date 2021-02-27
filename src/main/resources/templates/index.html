@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- Thymeleaf Namespace definieren -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Kühe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap für's Styling (CSS) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- Fontawesome für Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
+</head>
+
+<body>
+	<!-- Die folgenden Klassen sind alles Bootstrap-Klassen -->
+    <div class="container my-2">
+        <div class="card">
+            <div class="card-body">
+            	<!-- Switch auf das Model Attribut "cows" -->
+                <div th:switch="${cows}" class="container my-5">
+                    <p class="my-5">
+                        <a href="/cows/add" class="btn btn-primary"><i
+       class="fas fa-user-plus ml-2"> Neue Kuh</i></a>
+                    </p>
+                    <div class="col-md-10">
+                    	<!-- Falls noch keine Kuh in der Liste -->
+                        <h2 th:case="null">Noch keine Kühe erfasst!</h2>
+                        <!-- Falls Kühe in der Liste vorhanden -->
+                        <div th:case="*">
+                            <table class="table table-striped table-responsive-md">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Alter</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="cow : ${cows}"> <!-- Über Kühe iterieren -->
+                                        <td th:text="${cow.name}"></td>
+                                        <td th:text="${cow.age}"></td>
+                                        <!-- Edit-Button -->
+                                        <td><a th:href="@{/cows/edit/{id}(id=${cow.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                        <!-- Delete-Button -->
+                                        <td><a th:href="@{/cows/delete/{id}(id=${cow.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
